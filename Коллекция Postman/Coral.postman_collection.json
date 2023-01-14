@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "3643df92-c811-462f-9515-449997285146",
+		"name": "Coral",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21039286"
+	},
+	"item": [
+		{
+			"name": "Auth session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"token\", function () {\r",
+							"    var result = pm.response.json();\r",
+							"    pm.environment.set(\"token_auth\", result.token);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"applicationToken\": \"1ed7f81d-aeff-6d92-86c6-db6ead89be12\",\r\n  \"country\": \"RU\",\r\n  \"language\": \"ru\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-api.coral.club/api/v1/auth/session",
+					"protocol": "https",
+					"host": [
+						"dev-api",
+						"coral",
+						"club"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"session"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "application/json",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Status code is 406\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});\r",
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"pm.test(\"Status code is 503\", function () {\r",
+							"    pm.response.to.have.status(503);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_auth}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"personalData\": {\r\n    \"surname\": \"Ibvffhaw\",\r\n    \"name\": \"Egfbfhaw\",\r\n    \"patronymic\": \"Sergeevich\",\r\n    \"birthday\": \"1993-08-02\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"\",\r\n    \"phone\": \"86134546123\"\r\n  },\r\n  \r\n  \"consultant\": {\r\n    \"refCode\": \"722779981462\",\r\n    \"autofit\": false\r\n  },\r\n  \"password\": \"Test11-\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-api.coral.club/api/v2/registration",
+					"protocol": "https",
+					"host": [
+						"dev-api",
+						"coral",
+						"club"
+					],
+					"path": [
+						"api",
+						"v2",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
